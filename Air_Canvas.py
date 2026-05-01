@@ -3,7 +3,7 @@ import mediapipe as mp
 import numpy as np
 import time
 
-print("🌊 INDEX DRAW MODE STARTED 🌊")
+print(" INDEX DRAW MODE STARTED ")
 
 mp_hands = mp.solutions.hands
 mp_draw = mp.solutions.drawing_utils
@@ -24,11 +24,11 @@ prev_x, prev_y = 0,0
 smooth_x, smooth_y = 0,0
 alpha = 0.45
 
-# ⭐ clear timer
+#clear timer
 fist_start_time = None
 CLEAR_DELAY = 1.5
 
-# ⭐ NEW: color gesture state
+#NEW: color gesture state
 color_gesture_active = False
 
 while True:
@@ -61,7 +61,7 @@ while True:
         smooth_x = int(alpha*x + (1-alpha)*smooth_x)
         smooth_y = int(alpha*y + (1-alpha)*smooth_y)
 
-        # ✏️ DRAW WITH INDEX FINGER ONLY
+        # DRAW WITH INDEX FINGER ONLY
         if index_up and not middle_up:
 
             if prev_x==0 and prev_y==0:
@@ -76,7 +76,7 @@ while True:
         else:
             prev_x,prev_y = 0,0
 
-        # 🎨 COLOR CHANGE ONLY ONCE PER GESTURE
+        # COLOR CHANGE ONLY ONCE PER GESTURE
         if index_up and middle_up:
             if not color_gesture_active:
                 draw_color = (
@@ -88,7 +88,7 @@ while True:
         else:
             color_gesture_active = False
 
-        # 🧹 SAFE CLEAR (hold fist)
+        # SAFE CLEAR (hold fist)
         if fist:
             if fist_start_time is None:
                 fist_start_time = time.time()
@@ -103,7 +103,7 @@ while True:
 
     output = cv2.add(frame,canvas)
 
-    cv2.imshow("🌊 Index Brush Canvas 🌊",output)
+    cv2.imshow(" Index Brush Canvas ",output)
 
     if cv2.waitKey(1)&0xFF==27:
         break
